@@ -14,7 +14,7 @@ const LoggedIn = () => {
 
   return (
     <div>
-      <p>about</p>
+      <p>logged_in</p>
       <Button onClick={signOut}>Sign out</Button>
     </div>
   );
