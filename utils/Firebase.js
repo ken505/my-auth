@@ -8,6 +8,7 @@ const FirebaseCredentials = {
 };
 
 // if a Firebase instance doesn't exist, create one
+// Firebase インスタンスが存在しない場合は作成
 if (!Firebase.apps.length) {
   Firebase.initializeApp(FirebaseCredentials);
 }
