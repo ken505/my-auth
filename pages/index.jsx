@@ -28,7 +28,7 @@ export default function Home() {
       <form onSubmit={onSubmit}>
         {error && <alert color="danger">{error}</alert>}
         <div>
-          <label for="loginEmail">Email</label>
+          <label>Email</label>
         </div>
         <div>
           <input
@@ -42,7 +42,7 @@ export default function Home() {
         </div>
         <br />
         <div>
-          <label for="loginPassword" sm={4}>
+          <label>
             Password
           </label>
         </div>

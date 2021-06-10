@@ -36,7 +36,7 @@ const SignUp = () => {
       <form className="custom-form" onSubmit={onSubmit}>
         {error && <alert color="danger">{error}</alert>}
         <div>
-          <label for="signUpEmail">Email</label>
+          <label>Email</label>
         </div>
         <input
           type="email"
@@ -48,7 +48,7 @@ const SignUp = () => {
         />
         <div>
           <br />
-          <label for="signUpPassword" sm={4}>
+          <label>
             Password
           </label>
         </div>
@@ -62,7 +62,7 @@ const SignUp = () => {
         />
         <div>
           <br />
-          <label for="signUpPassword2" sm={4}>
+          <label>
             Confirm Password
           </label>
         </div>
