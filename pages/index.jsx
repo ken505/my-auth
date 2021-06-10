@@ -26,7 +26,7 @@ export default function Home() {
     <div className=".container">
       <h1>Login</h1>
       <form onSubmit={onSubmit}>
-        {error && <alert color="danger">{error}</alert>}
+        {error && <p>{error}</p>}
         <div>
           <label>Email</label>
         </div>
