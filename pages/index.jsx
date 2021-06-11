@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthUserContext";
 
-export default function Home() {
+const Home = () => {
   // ↓ 初期化の定義？
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +25,17 @@ export default function Home() {
       // ..... ↓ 使っていないとのことなので一旦ミュートに。
       // .then((authUser) => {
       .then(() => {
+        // email password を受け取って合否判定オッケーならログインページへ遷移。
+        // ❓合否は firebase 側でやっている、と思う。
         router.push("/logged_in");
       })
+      // 例外の場合エラーメッセージを setError へ持たせる。
       .catch((error) => {
         setError(error.message);
       });
+    // ↓ イベントが明示的に処理されない場合にその既定のアクションを通常どおりに行うべきではないことを伝えます。
+    // 例外処理の場合に画面遷移させないようにしてる❓
+    // .then が実行されると preventDefault が実行される前に画面遷移すると予想。
     e.preventDefault();
   };
 
@@ -75,4 +81,5 @@ export default function Home() {
       </form>
     </div>
   );
-}
+};
+export default Home;
