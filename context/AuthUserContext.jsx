@@ -19,7 +19,8 @@ import { createContext, useContext} from "react";
 // useContext (基本の hook )
 // コンテクストオブジェクト（React.createContext からの戻り値）を受け取り、そのコンテクストの現在値を返します。コンテクストの現在値は、ツリー内でこのフックを呼んだコンポーネントの直近にある <MyContext.Provider> の value の値によって決定されます。
 
-import useFirebaseAuth from "../hooks/useFirebaseAuth";
+// import useFirebaseAuth from "../hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
 
 const authUserContext = createContext({
   // このアプリでは、 authUserContext hooks を _app で import し、グローバルに
