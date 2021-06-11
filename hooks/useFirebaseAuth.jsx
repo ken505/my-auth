@@ -12,6 +12,7 @@ export const useFirebaseAuth = () => {
   const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // authState が無い場合、 AuthUser を初期化。 Loadd はしない。
   const authStateChanged = async (authState) => {
     if (!authState) {
       setAuthUser(null);
@@ -20,7 +21,8 @@ export const useFirebaseAuth = () => {
     }
 
     setLoading(true);
-    var formattedUser = formatAuthUser(authState);
+    // ↓ ver から const へ変更
+    const formattedUser = formatAuthUser(authState);
     setAuthUser(formattedUser);
     setLoading(false);
   };
