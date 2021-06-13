@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 // ↓ next.js が提供する React hooks です。
 import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "../context/AuthUserContext";
 
 const Home = () => {
@@ -10,14 +11,14 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  // ↓ ❓ page が切り替わるたびに ↑ の初期化処理を走らせると思われる。
+  // ↓ useRouter を router へ代入。
   const router = useRouter();
 
-  // Context で import したユーザー情報などを object として定義❓
+  // Context で import useAuth function を signInWithEmailAndPassword object へ代入。
   const { signInWithEmailAndPassword } = useAuth();
 
   const onSubmit = (e) => {
-    // ↓ erro の state を null に。（エラーリセット的な❓）
+    // ↓ erro の state を null に。（おそらく初期化❓）
     setError(null);
     signInWithEmailAndPassword(email, password)
       // ↓ then() メソッドは Promise を返します。最大2つの引数、 Promise が成功した場合と失敗した場合のコールバック関数を取ります。
@@ -34,16 +35,25 @@ const Home = () => {
         setError(error.message);
       });
     // ↓ イベントが明示的に処理されない場合にその既定のアクションを通常どおりに行うべきではないことを伝えます。
-    // 例外処理の場合に画面遷移させないようにしてる❓
-    // .then が実行されると preventDefault が実行される前に画面遷移すると予想。
+    // 例外処理の場合は画面遷移させない。
     e.preventDefault();
   };
 
+  // react hot toast の toast を notify へ代入。
+  // useMemo で error の値に変化がある時だけ toast 処理を発火。
+  // useMemo がないと、 password を修正した文字数分だけ toast が表示される。
+  // toast の引数は error とし、 toast の文章として表示される。
+  const notify = useMemo(() => toast(error), [error]);
   return (
     <div>
+      {/* ↓ エラーの回数が表示されて困っている❗️ */}
+      {error && (
+        <div>
+          {notify} <Toaster />
+        </div>
+      )}
       <h1>Login</h1>
       <form onSubmit={onSubmit}>
-        {error && <p>{error}</p>}
         <div>
           <label>Email</label>
         </div>
@@ -53,11 +63,11 @@ const Home = () => {
             type="email"
             // ↓ 最初、 HTML で明確に指定された場合は初期値。もっと一般的には、このフォームコントロールの現在の値。名前/値の組の部分としてフォームと一緒に送信される。
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            // ↓ 入力欄コントロールの名前。名前/値の組の部分としてフォームと一緒に送信される
             name="email"
             // ↓ フォームコントロールが空の時にフォームコントロール内に表示される内容
             placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            // ↓ 入力欄コントロールの名前。名前/値の組の部分としてフォームと一緒に送信される
           />
         </div>
         <br />
