@@ -34,6 +34,7 @@ const SignUp = () => {
     <div>
       <h1>Create an account</h1>
       <form className="custom-form" onSubmit={onSubmit}>
+      {/* ↓ toast じゃない version の error 表示 */}
         {error && <p>{error}</p>}
         <div>
           <label>Email</label>
