@@ -12,29 +12,33 @@ const SignUp = () => {
 
   const { createUserWithEmailAndPassword } = useAuth();
 
-  const onSubmit = (event) => {
+  const onSubmit = (e) => {
     setError(null);
     //check if passwords match. If they do, create user in Firebase
     // and redirect to your logged in page.
+    // パスワードが一致するかどうかをチェックします。一致していれば、Firebaseでユーザーを作成し を作成し、ログインしたページにリダイレクトします。
     if (passwordOne === passwordTwo)
       createUserWithEmailAndPassword(email, passwordOne)
-        .then((authUser) => {
-          console.log("Success. The user is created in Firebase");
+        // ..... ↓ 未使用
+        // .then((authUser) => {
+        .then(() => {
+          // console.log("Success. The user is created in Firebase");
           router.push("/logged_in");
         })
         .catch((error) => {
           // An error occurred. Set error message to be displayed to user
+          // ユーザーに表示するエラーメッセージの設定
           setError(error.message);
         });
     else setError("Password do not match");
-    event.preventDefault();
+    e.preventDefault();
   };
 
   return (
     <div>
       <h1>Create an account</h1>
       <form className="custom-form" onSubmit={onSubmit}>
-      {/* ↓ toast じゃない version の error 表示 */}
+        {/* ↓ toast じゃない version の error 表示 */}
         {error && <p>{error}</p>}
         <div>
           <label>Email</label>
@@ -42,38 +46,31 @@ const SignUp = () => {
         <input
           type="email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
           name="email"
-          id="signUpEmail"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <div>
           <br />
-          <label>
-            Password
-          </label>
+          <label>Password</label>
         </div>
         <input
           type="password"
           name="passwordOne"
           value={passwordOne}
-          onChange={(event) => setPasswordOne(event.target.value)}
-          id="signUpPassword"
           placeholder="Password"
+          onChange={(error) => setPasswordOne(e.target.value)}
         />
         <div>
           <br />
-          <label>
-            Confirm Password
-          </label>
+          <label>Confirm Password</label>
         </div>
         <input
           type="password"
           name="password"
           value={passwordTwo}
-          onChange={(event) => setPasswordTwo(event.target.value)}
-          id="signUpPassword2"
           placeholder="Password"
+          onChange={(e) => setPasswordTwo(e.target.value)}
         />
         <br />
         <br />
