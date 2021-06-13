@@ -40,7 +40,7 @@ const Home = () => {
   };
 
   return (
-    <div className=".container">
+    <div>
       <h1>Login</h1>
       <form onSubmit={onSubmit}>
         {error && <p>{error}</p>}
@@ -49,11 +49,14 @@ const Home = () => {
         </div>
         <div>
           <input
+            //  ↓ 電子メールアドレスを編集するための欄です。 text 入力欄のように見えますが、対応しているブラウザーや動的なキーボードのある端末では、入力値を検証したり、関連するキーボードを表示したりします。
             type="email"
+            // ↓ 最初、 HTML で明確に指定された場合は初期値。もっと一般的には、このフォームコントロールの現在の値。名前/値の組の部分としてフォームと一緒に送信される。
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            // ↓ 入力欄コントロールの名前。名前/値の組の部分としてフォームと一緒に送信される
             name="email"
-            id="loginEmail"
+            // ↓ フォームコントロールが空の時にフォームコントロール内に表示される内容
             placeholder="Email"
           />
         </div>
@@ -67,7 +70,6 @@ const Home = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            id="loginPassword"
             placeholder="Password"
           />
         </div>
